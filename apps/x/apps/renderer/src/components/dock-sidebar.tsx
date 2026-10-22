@@ -95,6 +95,9 @@ import { getBillingPlanData } from "@x/shared/dist/billing.js"
 import { ServiceEvent } from "@x/shared/src/service-events.js"
 import z from "zod"
 
+// Rebranding local (IdentIA Workbench): el plan y el Upgrade de Rowboat Labs no se muestran.
+const HIDE_ROWBOAT_BILLING = true
+
 // The app's left navigation collapsed to a slim icon rail (Notion/Linear
 // style): a full-height strip of the same monochrome glyphs the panel sidebar
 // uses, with unread-count badges, status tooltips, flyout panels for Chats and
@@ -1308,9 +1311,9 @@ export function DockSidebar({
                 <MascotFaceIcon className="mr-2 size-3.5" /> Take a tour
               </ContextMenuItem>
             )}
-            <ContextMenuSeparator />
+            {!(HIDE_ROWBOAT_BILLING && isRowboatConnected) && <ContextMenuSeparator />}
             {isRowboatConnected ? (
-              appUrl && (
+              !HIDE_ROWBOAT_BILLING && appUrl && (
                 <ContextMenuItem onClick={() => window.open(`${appUrl}?intent=upgrade`)}>
                   <ArrowUpRight className="mr-2 size-3.5" />
                   {outOfCredits
@@ -1437,7 +1440,7 @@ export function DockSidebar({
                       </div>
                     </div>
                     {isRowboatConnected ? (
-                      appUrl && (
+                      !HIDE_ROWBOAT_BILLING && appUrl && (
                         <DropdownMenuItem onSelect={() => window.open(`${appUrl}?intent=upgrade`)}>
                           <ArrowUpRight />
                           {outOfCredits

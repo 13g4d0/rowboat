@@ -65,7 +65,7 @@ export function ChatEmptyState({
     <div className={cn('mx-auto flex w-full flex-col gap-5 py-6', wide ? 'max-w-4xl px-4' : 'max-w-md px-2')}>
       <div>
         <div className={cn('font-semibold tracking-tight', wide ? 'text-2xl' : 'text-lg')}>
-          What are we working on?
+          ¿En qué estamos trabajando?
         </div>
         <div className={cn('mt-1 text-muted-foreground', wide ? 'text-[15px]' : 'text-[13px]')}>
           Ask anything, or start with a suggestion.

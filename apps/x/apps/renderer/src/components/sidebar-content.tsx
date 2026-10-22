@@ -97,6 +97,9 @@ import { ServiceEvent } from "@x/shared/src/service-events.js"
 import z from "zod"
 import "@/styles/sidebar.css"
 
+// Rebranding local (IdentIA Workbench): el plan y el Upgrade de Rowboat Labs no se muestran.
+const HIDE_ROWBOAT_BILLING = true
+
 interface TreeNode {
   path: string
   name: string
@@ -1246,7 +1249,7 @@ export function SidebarContentPanel({
       <SidebarFooter className="gap-0 px-2 pb-2 pt-1">
         {/* The out-of-credits notice anchors to the account row and opens by
             itself once per episode, as the plan card's did. */}
-        <Popover open={creditPopoverOpen && outOfCredits && !sidebarCollapsed} onOpenChange={setCreditPopoverOpen}>
+        <Popover open={!HIDE_ROWBOAT_BILLING && creditPopoverOpen && outOfCredits && !sidebarCollapsed} onOpenChange={setCreditPopoverOpen}>
           <PopoverAnchor asChild>
             <div className="sb-account-bar">
               {/* Name and plan pill share one hover surface (2026-10-21). */}
@@ -1275,7 +1278,7 @@ export function SidebarContentPanel({
                     </div>
                   </div>
                   {isRowboatConnected ? (
-                    billing && (
+                    !HIDE_ROWBOAT_BILLING && billing && (
                       <div className="mb-1 flex items-center gap-3 rounded-lg bg-foreground/[0.04] px-2.5 py-2">
                         <div className="min-w-0 flex-1">
                           <div className="truncate text-[13px] font-medium capitalize">{planName}</div>
@@ -1324,7 +1327,7 @@ export function SidebarContentPanel({
                 <button type="button" className="sb-plan-pill" onClick={handleRowboatLogin} disabled={loggingIn}>
                   {loggingIn ? 'Signing in…' : 'Sign in'}
                 </button>
-              ) : billing && (
+              ) : !HIDE_ROWBOAT_BILLING && billing && (
                 <Tooltip delayDuration={400}>
                   <TooltipTrigger asChild>
                     <button type="button" className={cn('sb-plan-pill', outOfCredits && 'is-alert')} onClick={openUpgrade}>

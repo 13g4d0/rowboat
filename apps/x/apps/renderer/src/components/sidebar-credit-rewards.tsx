@@ -10,6 +10,9 @@ import { formatCreditsAsDollars, type CreditActivityCode } from "@x/shared/dist/
 
 const DISMISSED_KEY = "rowboat.credit-rewards-card-dismissed"
 
+// Rebranding local (IdentIA Workbench): la promo «Earn $20 in credits» no se muestra.
+const HIDE_CREDIT_REWARDS = true
+
 interface SidebarCreditRewardsProps {
   onOpenEmail?: () => void
   onOpenMeetings?: () => void
@@ -47,6 +50,7 @@ export function SidebarCreditRewards({
     setOpen(false)
   }, [])
 
+  if (HIDE_CREDIT_REWARDS) return null
   if (dismissed || !state || !state.enabled || !state.eligible) return null
 
   const referral = state.referral
